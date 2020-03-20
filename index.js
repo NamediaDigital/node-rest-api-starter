@@ -22,9 +22,11 @@ app.use(function(req, res, next) {
 
 app.use(bodyParser.json())
 
+// Endpoints
 app.get('/', function(req, res) {
   res.send('hello world')
 })
+app.use('/api', require('./api/users').router)
 
 app.listen(port, function() {
   console.log('app listening at port %s', port)
