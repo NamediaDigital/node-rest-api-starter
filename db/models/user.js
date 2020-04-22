@@ -1,10 +1,10 @@
-'use strict';
-const { DataTypes } = require('sequelize');
-const sequelize = require('../../db/connection');
+"use strict";
+const { DataTypes } = require("sequelize");
+const sequelize = require("../../db/connection");
 
 const User = (sequelize, DataTypes) => {
   const User = sequelize.define(
-    'User',
+    "User",
     {
       firstName: DataTypes.STRING,
       lastName: DataTypes.STRING,
