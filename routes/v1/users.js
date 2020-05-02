@@ -1,8 +1,10 @@
 const express = require("express");
 const router = express.Router();
-const User = require("../../db/models/user");
+const User = require(__root + "db/models/user");
 const bcrypt = require("bcrypt");
 const saltRounds = +process.env.SALT_ROUNDS;
+const createJwt = require("./auth/createJwt");
+const verifyToken = require("./auth/authorize");
 
 /* GET users listing. */
 router.get("/", function (req, res, next) {
