@@ -1,13 +1,16 @@
 require("dotenv").config();
 
+// Set up __root directory
+global.__root = __dirname + "/";
+
 const express = require("express");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const app = express();
-const indexRouter = require("./routes/v1/index");
-const usersRouter = require("./routes/v1/users");
-const authenticateRoute = require("./routes/v1/authenticate");
-const db = require("./db/connection");
+const indexRouter = require(__root + "routes/v1/index");
+const usersRouter = require(__root + "routes/v1/users");
+const authenticate = require(__root + "routes/v1/authenticate");
+const db = require(__root + "db/connection");
 const port = process.env.NODE_ENV === "production" ? process.env.PORT : 8000;
 
 app.use(logger("dev"));
