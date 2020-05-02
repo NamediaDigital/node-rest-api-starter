@@ -7,9 +7,9 @@ const express = require("express");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const app = express();
-const indexRouter = require(__root + "routes/v1/index");
+const indexRouter = require(__root + "routes/v1");
 const usersRouter = require(__root + "routes/v1/users");
-const authenticate = require(__root + "routes/v1/authenticate");
+const authenticate = require(__root + "routes/v1/auth/authenticate");
 const db = require(__root + "db/connection");
 const port = process.env.NODE_ENV === "production" ? process.env.PORT : 8000;
 
@@ -20,7 +20,7 @@ app.use(cookieParser());
 
 // Routes
 app.use("/", indexRouter);
-app.use("/v1/login", authenticate);
+app.use("/v1/auth", authenticate);
 app.use("/v1/users", usersRouter);
 
 // Database connection
