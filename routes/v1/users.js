@@ -15,28 +15,34 @@ router.get("/", verifyToken, function (req, res, next) {
     });
 });
 
-/* POST - Create a new User */
+/* POST - Register/Create a new User */
 router.post("/", async function (req, res, next) {
   const { firstName, lastName, email, password } = req.body;
 
+  // Generate Salt and hash password
   bcrypt.genSalt(saltRounds, function (err, salt) {
     if (err) {
+      // TODO: Better handle this exception
       throw new Error(err);
     }
     bcrypt.hash(password, salt, function (err, hash) {
       if (err) {
+        // TODO: Better handle this exception
         throw new Error(err);
       }
+
+      // Create new User, or find existing user
       User.findOrCreate({
         where: { firstName, lastName, email, password: hash },
       })
         .then(([user, created]) => {
           if (created) {
-            res.status(201).json(user);
+            const token = createJwt(user.id);
+            res.status(201).send({ auth: true, token: token });
           }
         })
         .catch((err) => {
-          throw new Error(err);
+          res.status(500).send({ error: err.message });
         });
     });
   });
