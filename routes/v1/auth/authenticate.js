@@ -10,7 +10,7 @@ router.post("/login", function (req, res, next) {
   // a Base64 encoded string representing username and password values,
   // appended to the text "Basic "
   // Split and access only the Base64 encoded string representing username and password values
-  const data = req.headers.authorization.split(" ")[1];
+  const data = req.headers["authorization"].split(" ")[1];
   const buff = new Buffer.from(data, "base64");
   const [email, password] = buff.toString("ascii").split(":");
 
