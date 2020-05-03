@@ -15,6 +15,14 @@ router.get("/", verifyToken, function (req, res, next) {
     });
 });
 
+/* GET user by id */
+router.get("/:userId", verifyToken, function (req, res, next) {
+  const userId = +req.params.userId === +req.userId && req.userId;
+  User.findOne({ where: { id: userId } })
+    .then((user) => res.status(200).send(user))
+    .catch((err) => res.status(404).send({ error: err.message }));
+});
+
 /* POST - Register/Create a new User */
 router.post("/", function (req, res, next) {
   const { firstName, lastName, email, password, confirm_password } = req.body;
