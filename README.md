@@ -1,3 +1,5 @@
-# Authentication and Authorization micro-services written in Node, Express, Sequelize, PostgreSQL
+# Production REST API Starter Project.
+
+## Node, Express, Sequelize, PostgreSQL.
 
 TODO
