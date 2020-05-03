@@ -16,19 +16,28 @@ router.get("/", verifyToken, function (req, res, next) {
 });
 
 /* POST - Register/Create a new User */
-router.post("/", async function (req, res, next) {
-  const { firstName, lastName, email, password } = req.body;
+router.post("/", function (req, res, next) {
+  const { firstName, lastName, email, password, confirm_password } = req.body;
+
+  // Check that password and confirmPassword do not match
+  if (password !== confirm_password) {
+    // HTTP Status Code 400 Bad request
+    res
+      .status(400)
+      .send({ error: "Password and Confirm Password do not match" });
+    return;
+  }
 
   // Generate Salt and hash password
   bcrypt.genSalt(saltRounds, function (err, salt) {
     if (err) {
       // TODO: Better handle this exception
-      throw new Error(err);
+      throw new Error(err.message);
     }
     bcrypt.hash(password, salt, function (err, hash) {
       if (err) {
         // TODO: Better handle this exception
-        throw new Error(err);
+        throw new Error(err.message);
       }
 
       // Create new User, or find existing user
