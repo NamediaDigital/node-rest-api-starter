@@ -59,26 +59,55 @@ router.post("/", function (req, res, next) {
 
 /*
 PATCH - Update firstName/lastName/email for existing user
-TODO: Handle case for updating password
 */
 router.patch("/:userId", verifyToken, function (req, res, next) {
-  const userId = req.params.userId;
+  const userId = +req.params.userId === +req.userId && req.userId;
   const data = req.body;
   User.findOne({ where: { id: userId } })
-    .then((user) => {
+    .then((user) =>
       user
         .update(data)
         .then((user) => {
-          res.status(200).json(user);
+          res.status(200).send(user);
         })
         .catch((err) => {
-          throw new Error(err);
-        });
-      return null;
-    })
+          throw new Error(err.message);
+        })
+    )
     .catch((err) => {
-      throw new Error(err);
+      res.status(404).send({ error: err.message });
     });
+
+  // TODO: Update password
+  // Generate Salt and hash password
+  // bcrypt.genSalt(saltRounds, function (err, salt) {
+  //   if (err) {
+  //     // TODO: Better handle this exception
+  //     throw new Error(err.message);
+  //   }
+  //   bcrypt.hash(password, salt, function (err, hash) {
+  //     if (err) {
+  //       // TODO: Better handle this exception
+  //       throw new Error(err.message);
+  //     }
+  //     Object.assign(data, { password: hash });
+
+  //     User.findOne({ where: { id: userId } })
+  //       .then((user) =>
+  //         user
+  //           .update(data)
+  //           .then((user) => {
+  //             res.status(200).send(user);
+  //           })
+  //           .catch((err) => {
+  //             throw new Error(err.message);
+  //           })
+  //       )
+  //       .catch((err) => {
+  //         throw new Error(err.message);
+  //       });
+  //   });
+  // });
 });
 
 /* DELETE User */
