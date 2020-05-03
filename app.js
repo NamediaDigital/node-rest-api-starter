@@ -6,6 +6,7 @@ global.__root = __dirname + "/";
 const express = require("express");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
+const helmet = require("helmet");
 const app = express();
 const indexRouter = require(__root + "routes/v1");
 const usersRouter = require(__root + "routes/v1/users");
@@ -17,6 +18,7 @@ app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(helmet());
 
 // Routes
 app.use("/", indexRouter);
