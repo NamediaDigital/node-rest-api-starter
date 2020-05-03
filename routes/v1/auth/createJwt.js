@@ -1,9 +1,9 @@
 const jwt = require("jsonwebtoken");
 const jwtSecret = process.env.JWT_SECRET;
+const jwtExp = process.env.JWT_EXP;
 
 module.exports = function (userId) {
   return jwt.sign({ userId }, jwtSecret, {
-    // expires in one week = 7 * 24 * 60 * 60
-    expiresIn: 604800,
+    expiresIn: jwtExp,
   });
 };
