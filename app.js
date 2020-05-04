@@ -8,9 +8,9 @@ const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const helmet = require("helmet");
 const app = express();
-const indexRouter = require(__root + "routes/v1");
-const usersRouter = require(__root + "routes/v1/users");
-const authenticate = require(__root + "routes/v1/auth/authenticate");
+const indexRouter = require(__root + "routes/");
+const usersRouter = require(__root + "routes/users");
+const authenticate = require(__root + "routes/auth/authenticate");
 const db = require(__root + "db/connection");
 const port = process.env.NODE_ENV === "production" ? process.env.PORT : 8000;
 
