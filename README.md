@@ -1,5 +1,7 @@
-# Production REST API Starter Project.
+# Production-Ready REST API Starter Project.
 
 ## Node, Express, Sequelize, PostgreSQL.
 
-TODO
+The app contains authentication and authorization logic plus one resource for users.
+
+There are two versions of the app: app.js and v2_app.js. Both versions are in working condintions.
