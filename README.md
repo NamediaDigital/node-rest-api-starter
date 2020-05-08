@@ -1,6 +1,6 @@
-# Production-Ready REST API Starter Project.
+# Production-Ready REST API Starter Code.
 
-## Node, Express, Sequelize, PostgreSQL.
+## Tech Stack: Node, Express, Sequelize, PostgreSQL.
 
 The app contains authentication and authorization logic plus one resource for users.
 
