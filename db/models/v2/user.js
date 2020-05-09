@@ -10,6 +10,7 @@ const User = (sequelize, DataTypes) => {
       lastName: DataTypes.STRING,
       email: DataTypes.STRING,
       password: DataTypes.STRING,
+      permissionLevel: DataTypes.INTEGER,
     },
     {}
   );
