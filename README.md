@@ -1,4 +1,4 @@
-# Production-Ready REST API Starter Code.
+# Production-Ready RESTful API Starter Code.
 
 ## Tech Stack: Node, Express, Sequelize, PostgreSQL.
 
