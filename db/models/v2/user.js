@@ -10,6 +10,7 @@ const User = (sequelize, DataTypes) => {
       lastName: DataTypes.STRING,
       email: DataTypes.STRING,
       password: DataTypes.STRING,
+      permissionLevel: DataTypes.INTEGER,
     },
     {}
   );
@@ -22,7 +23,7 @@ const User = (sequelize, DataTypes) => {
 const UserModel = User(sequelize, DataTypes);
 
 exports.findByEmail = (email) => {
-  return UserModel.findOne({ where: { email: email } });
+  return UserModel.findOne({ where: { email } });
 };
 
 exports.findById = (id) => {
@@ -33,7 +34,9 @@ exports.findById = (id) => {
 };
 
 exports.createUser = (userData) => {
-  return UserModel.findOrCreate(userData);
+  return UserModel.findOrCreate({
+    where: userData,
+  });
 };
 
 exports.list = (perPage, page) => {

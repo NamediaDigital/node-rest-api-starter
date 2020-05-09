@@ -1,4 +1,4 @@
-const UserModel = require(__root + "db/models/user");
+const UserModel = require(__root + "db/models/v2/user");
 const crypto = require("crypto");
 
 exports.hasAuthValidFields = (req, res, next) => {
@@ -27,7 +27,7 @@ exports.hasAuthValidFields = (req, res, next) => {
 exports.isPasswordAndUserMatch = (req, res, next) => {
   UserModel.findByEmail(req.body.email).then((user) => {
     if (!user) {
-      res.status(404).send({});
+      res.status(404).send({ error: "User not found" });
     } else {
       let passwordFields = user.password.split("$");
       let salt = passwordFields[0];
@@ -37,7 +37,7 @@ exports.isPasswordAndUserMatch = (req, res, next) => {
         .digest("base64");
       if (hash === passwordFields[1]) {
         req.body = {
-          userId: user._id,
+          id: user.id,
           email: user.email,
           permissionLevel: user.permissionLevel,
           provider: "email",

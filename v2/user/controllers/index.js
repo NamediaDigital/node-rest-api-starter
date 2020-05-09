@@ -9,16 +9,22 @@ exports.insert = (req, res) => {
     .digest("base64");
   req.body.password = salt + "$" + hash;
   req.body.permissionLevel = 1;
-  delete req.body.confirm_password;
+  delete req.body.confirmPassword;
 
-  UserModel.createUser(req.body).then((newUser) =>
-    res.status(201).send({ id: newUser.id })
-  );
+  UserModel.createUser(req.body)
+    .then(([newUser, created]) => {
+      if (created) {
+        return res.status(201).send({ id: newUser.id });
+      }
+    })
+    .catch((err) => {
+      res.status(500).send({ error: "Server unable to create new user" });
+    });
 };
 
 exports.list = (req, res) => {
   let limit =
-    req.query.limit && req.query.limit <= 100 ? parseInt(req.query.limit) : 10;
+    req.query.limit && req.query.limit <= 100 ? parseInt(req.query.limit) : 25;
   let page = 0;
   if (req.query) {
     if (req.query.page) {
@@ -45,7 +51,7 @@ exports.patchById = (req, res) => {
       .update(req.body.password)
       .digest("base64");
     req.body.password = salt + "$" + hash;
-    delete req.body.confirm_password;
+    delete req.body.confirmPassword;
   }
 
   UserModel.patchUser(req.params.userId, req.body).then((result) => {
