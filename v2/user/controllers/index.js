@@ -9,7 +9,7 @@ exports.insert = (req, res) => {
     .digest("base64");
   req.body.password = salt + "$" + hash;
   req.body.permissionLevel = 1;
-  delete req.body.confirm_password;
+  delete req.body.confirmPassword;
 
   UserModel.createUser(req.body).then((newUser) =>
     res.status(201).send({ id: newUser.id })
@@ -45,7 +45,7 @@ exports.patchById = (req, res) => {
       .update(req.body.password)
       .digest("base64");
     req.body.password = salt + "$" + hash;
-    delete req.body.confirm_password;
+    delete req.body.confirmPassword;
   }
 
   UserModel.patchUser(req.params.userId, req.body).then((result) => {
