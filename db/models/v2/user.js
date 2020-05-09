@@ -34,7 +34,9 @@ exports.findById = (id) => {
 };
 
 exports.createUser = (userData) => {
-  return UserModel.findOrCreate(userData);
+  return UserModel.findOrCreate({
+    where: userData,
+  });
 };
 
 exports.list = (perPage, page) => {
