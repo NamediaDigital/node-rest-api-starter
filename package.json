@@ -1,10 +1,11 @@
 {
   "name": "starter-node-api",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "start": "node v2_app.js",
-    "start-dev": "nodemon v2_app.js"
+    "start-dev": "nodemon v2_app.js",
+    "test": "nodemon --watch . --ext js --exec \"mocha -r test/**/*.test.js\""
   },
   "dependencies": {
     "bcrypt": "^4.0.1",
@@ -24,6 +25,7 @@
     "mocha": "^7.1.1",
     "nodemon": "^2.0.3",
     "sequelize-cli": "^5.5.1",
-    "sinon": "^9.0.1"
+    "sinon": "^9.0.1",
+    "supertest": "^4.0.2"
   }
 }
