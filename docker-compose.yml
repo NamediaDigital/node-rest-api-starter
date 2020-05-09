@@ -1,0 +1,32 @@
+version: "3"
+services:
+  api:
+    image: sharpie0111/starter-rest-api-node
+    build: .
+    networks:
+      - backend
+    ports:
+      - "8000:8000"
+    depends_on:
+      - postgres
+
+  postgres:
+    image: postgres
+    volumes:
+      - ./data:/data/db
+    networks:
+      - backend
+    ports:
+      - "27017:27017"
+
+  web-cli:
+    image: sharpie0111/starter-rest-api-node
+    links:
+      - postgres
+    networks:
+      - backend
+    command: sh
+
+networks:
+  backend:
+    driver: bridge
