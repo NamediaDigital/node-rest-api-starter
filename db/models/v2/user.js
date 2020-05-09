@@ -23,7 +23,7 @@ const User = (sequelize, DataTypes) => {
 const UserModel = User(sequelize, DataTypes);
 
 exports.findByEmail = (email) => {
-  return UserModel.findOne({ where: { email: email } });
+  return UserModel.findOne({ where: { email } });
 };
 
 exports.findById = (id) => {
