@@ -24,7 +24,7 @@ exports.insert = (req, res) => {
 
 exports.list = (req, res) => {
   let limit =
-    req.query.limit && req.query.limit <= 100 ? parseInt(req.query.limit) : 10;
+    req.query.limit && req.query.limit <= 100 ? parseInt(req.query.limit) : 25;
   let page = 0;
   if (req.query) {
     if (req.query.page) {
