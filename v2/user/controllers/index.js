@@ -11,9 +11,15 @@ exports.insert = (req, res) => {
   req.body.permissionLevel = 1;
   delete req.body.confirmPassword;
 
-  UserModel.createUser(req.body).then((newUser) =>
-    res.status(201).send({ id: newUser.id })
-  );
+  UserModel.createUser(req.body)
+    .then(([newUser, created]) => {
+      if (created) {
+        return res.status(201).send({ id: newUser.id });
+      }
+    })
+    .catch((err) => {
+      res.status(500).send({ error: "Server unable to create new user" });
+    });
 };
 
 exports.list = (req, res) => {
