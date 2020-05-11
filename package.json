@@ -5,7 +5,7 @@
   "scripts": {
     "start": "node v2_app.js",
     "start-dev": "nodemon v2_app.js",
-    "test": "nodemon --watch . --ext js --exec \"mocha -r test/**/*.test.js\""
+    "test": "nodemon --watch . --ext js --exec \"mocha --recursive test/**/*.test.js\""
   },
   "dependencies": {
     "bcrypt": "^4.0.1",
